@@ -1,5 +1,5 @@
--- Visitor feedback for U-properties. Anyone can submit; nobody can read it through the public key.
-create table if not exists public.feedback (
+-- Visitor feedback for U-properties (lives in the marketing-platform project for now). Anyone can submit; nobody can read it through the public key.
+create table if not exists public.up_feedback (
   id uuid primary key default gen_random_uuid(),
   created_at timestamptz not null default now(),
   rating smallint check (rating between 1 and 5),
@@ -10,12 +10,12 @@ create table if not exists public.feedback (
   page text check (char_length(page) <= 300)
 );
 
-alter table public.feedback enable row level security;
+alter table public.up_feedback enable row level security;
 
 -- Public visitors may only add feedback, never read, change or delete it.
-drop policy if exists "anyone can submit feedback" on public.feedback;
-create policy "anyone can submit feedback" on public.feedback
+drop policy if exists "anyone can submit feedback" on public.up_feedback;
+create policy "anyone can submit feedback" on public.up_feedback
   for insert to anon, authenticated with check (true);
 
-revoke all on public.feedback from anon, authenticated;
-grant insert on public.feedback to anon, authenticated;
+revoke all on public.up_feedback from anon, authenticated;
+grant insert on public.up_feedback to anon, authenticated;

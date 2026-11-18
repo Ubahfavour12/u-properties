@@ -1,7 +1,8 @@
 // Where feedback is sent. The publishable key is safe in the browser: the database only lets it insert feedback.
 // shortcut: hard-coded because Vercel env vars can't be set from here; move to NEXT_PUBLIC_ env vars later.
-export const SUPABASE_URL = "";
-export const SUPABASE_KEY = "";
+// Parked in the marketing-platform Supabase project (table up_feedback) until U-properties gets its own.
+export const SUPABASE_URL = "https://uobvfnkfdykercojmnbu.supabase.co";
+export const SUPABASE_KEY = "sb_publishable_rMpVnQ-1y5xhTf9WKTP1QA_MyArCQZD";
 
 export const ROLES = ["renter", "buyer", "agent", "landlord", "investor", "other"] as const;
 export type Role = (typeof ROLES)[number];
@@ -25,7 +26,7 @@ export function cleanFeedback(f: Feedback): { error: string } | { row: Feedback 
 }
 
 export async function sendFeedback(row: Feedback) {
-  const res = await fetch(`${SUPABASE_URL}/rest/v1/feedback`, {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/up_feedback`, {
     method: "POST",
     headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}`, "Content-Type": "application/json", Prefer: "return=minimal" },
     body: JSON.stringify(row),
