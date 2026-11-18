@@ -1,6 +1,7 @@
 import "./globals.css";
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { FeedbackButton } from "@/components/FeedbackButton.tsx";
 
 export const metadata = {
   title: "U-properties: verified homes and land in Lagos",
@@ -33,6 +34,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <Link href="/admin">Admin</Link>
           </div>
         </footer>
+        <FeedbackButton />
       </body>
     </html>
   );
